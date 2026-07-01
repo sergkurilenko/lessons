@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Ставим тему до отрисовки, чтобы не было вспышки светлого фона
+    (function () {
+      try {
+        var t = localStorage.getItem("rakurs-theme");
+        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <title>Ракурс — онлайн-школа фотографии для взрослых новичков</title>
+  <meta name="description" content="Учим снимать на то, что уже есть под рукой: сначала на телефон, потом на камеру. Без снобизма и трёх лет теории — сразу на практике.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark">◐</span>
+        <span class="logo-text">Ракурс</span>
+      </a>
+      <nav class="nav">
+        <a href="#courses">Курсы</a>
+        <a href="#prices">Цены</a>
+        <a href="#contacts">Контакты</a>
+        <a href="gallery.html">Примеры</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Тёмная тема" aria-pressed="false">
+        <span class="theme-icon">☾</span>
+      </button>
+      <button type="button" class="btn btn-sm btn-choose" id="choose-btn">
+        <span>Выбрать курс</span>
+        <span class="fav-count" id="fav-count" hidden>0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Первый экран -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="hero-eyebrow">Онлайн-школа фотографии</p>
+      <h1 class="hero-title">Снимай красиво<br>на то, что уже под рукой</h1>
+      <p class="hero-lead">
+        Сначала на телефон, потом на камеру. Без снобизма, формул и трёх лет
+        теории — сразу на практике, с разбором твоих же кадров.
+      </p>
+      <div class="hero-actions">
+        <a href="#courses" class="btn btn-lg">Начать учиться</a>
+        <a href="#prices" class="btn btn-lg btn-ghost">Посмотреть цены</a>
+      </div>
+      <ul class="hero-badges">
+        <li>Полностью онлайн</li>
+        <li>Уроки по 8–15 минут</li>
+        <li>Доступ навсегда</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Курсы -->
+  <section class="section" id="courses">
+    <div class="container">
+      <h2 class="section-title">Курсы</h2>
+      <p class="section-sub">
+        Для тех, кто снимает для себя, семьи или соцсетей и устал от «мыльных»
+        кадров. Специальная техника и опыт не нужны.
+      </p>
+
+      <div class="cards" id="courses-grid">
+        <!-- карточки курсов рендерятся из app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Цены -->
+  <section class="section section-alt" id="prices">
+    <div class="container">
+      <h2 class="section-title">Тарифы и цены</h2>
+      <p class="section-sub">
+        Уроки на всех тарифах одинаковые — отличается объём обратной связи.
+        Цена за курс целиком, разовая оплата, доступ бессрочный.
+      </p>
+
+      <div class="tariffs" id="tariffs-grid">
+        <!-- описания тарифов рендерятся из app.js -->
+      </div>
+
+      <div class="price-table-wrap">
+        <table class="price-table" id="price-table">
+          <!-- таблица цен рендерится из app.js -->
+        </table>
+      </div>
+
+      <ul class="conditions">
+        <li><strong>Старт потоков</strong> — раз в месяц, 1-го числа. Место можно занять заранее.</li>
+        <li><strong>Рассрочка</strong> — можно разбить оплату на 3 месяца без процентов.</li>
+        <li><strong>Возврат</strong> — вернём деньги в течение 7 дней после старта, если пройдено не больше двух уроков.</li>
+        <li><strong>Сертификат</strong> — на тарифах «С разбором» и «Личный» после финального задания.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section class="section" id="contacts">
+    <div class="container">
+      <h2 class="section-title">Контакты</h2>
+      <p class="section-sub">
+        Есть вопрос — напиши, ответим по-человечески. Анонсы, советы и разборы —
+        в наших каналах.
+      </p>
+
+      <div class="contacts">
+        <a class="contact-card" href="https://t.me/rakurs_school" target="_blank" rel="noopener">
+          <span class="contact-icon">✈</span>
+          <span class="contact-label">Telegram-канал</span>
+          <span class="contact-value">@rakurs_school</span>
+        </a>
+        <a class="contact-card" href="https://vk.com/rakurs_school" target="_blank" rel="noopener">
+          <span class="contact-icon">◤</span>
+          <span class="contact-label">ВКонтакте</span>
+          <span class="contact-value">vk.com/rakurs_school</span>
+        </a>
+        <a class="contact-card" href="mailto:hello@rakurs.example">
+          <span class="contact-icon">✉</span>
+          <span class="contact-label">Почта для вопросов</span>
+          <span class="contact-value">hello@rakurs.example</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="logo-text">Ракурс</span>
+      <span class="footer-note">Онлайн-школа фотографии для взрослых новичков</span>
+    </div>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

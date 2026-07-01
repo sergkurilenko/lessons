@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Ставим тему до отрисовки, чтобы не было вспышки светлого фона
+    (function () {
+      try {
+        var t = localStorage.getItem("rakurs-theme");
+        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <title>Примеры кадров — Ракурс</title>
+  <meta name="description" content="Смотри примеры работ через рамку-видоискатель: свет, выдержка, ISO, фокус — на живых кадрах.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">◐</span>
+        <span class="logo-text">Ракурс</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#courses">Курсы</a>
+        <a href="index.html#prices">Цены</a>
+        <a href="index.html#contacts">Контакты</a>
+        <a href="gallery.html" class="active">Примеры</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Тёмная тема" aria-pressed="false">
+        <span class="theme-icon">☾</span>
+      </button>
+      <a href="index.html#courses" class="btn btn-sm btn-choose">Выбрать курс</a>
+    </div>
+  </header>
+
+  <!-- Видоискатель -->
+  <section class="section gallery-section">
+    <div class="container">
+      <h2 class="section-title">Примеры кадров</h2>
+      <p class="section-sub">
+        Посмотри на работы через видоискатель камеры. У каждого кадра — что важно
+        поймать и как это разбирают на курсах.
+      </p>
+
+      <div class="viewfinder" id="viewfinder" tabindex="0" aria-label="Видоискатель, листай стрелками">
+        <img class="vf-photo" id="vf-photo" alt="">
+
+        <!-- Сетка по правилу третей -->
+        <div class="vf-grid" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+
+        <!-- Уголки рамки -->
+        <div class="vf-corners" aria-hidden="true">
+          <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
+        </div>
+
+        <!-- Точка фокуса по центру (клик — навести резкость) -->
+        <button class="vf-af" id="vf-af" aria-label="Навести резкость"></button>
+        <div class="vf-focus-status" id="vf-focus-status" aria-hidden="true">◌ ФОКУСИРОВКА</div>
+
+        <!-- Верхний HUD -->
+        <div class="vf-hud vf-top" aria-hidden="true">
+          <span class="vf-rec"><i></i>REC</span>
+          <span class="vf-mid">
+            <span class="vf-mode" id="vf-tag">СВЕТ</span>
+            <span class="vf-ev" id="vf-ev">±0.0 EV</span>
+          </span>
+          <span class="vf-batt"><b class="vf-counter" id="vf-counter">01/05</b> ▮▮▮▮</span>
+        </div>
+
+        <!-- Нижний HUD: EXIF + подпись -->
+        <div class="vf-hud vf-bottom" aria-hidden="true">
+          <span class="vf-exif" id="vf-exif"></span>
+          <span class="vf-title" id="vf-hud-title"></span>
+        </div>
+
+        <!-- Стрелки -->
+        <button class="vf-nav vf-prev" id="vf-prev" aria-label="Предыдущий кадр">‹</button>
+        <button class="vf-nav vf-next" id="vf-next" aria-label="Следующий кадр">›</button>
+      </div>
+
+      <!-- Управление кадром -->
+      <div class="vf-controls">
+        <label class="vf-ctrl">
+          <span class="vf-ctrl-head">☀ Свет <b id="light-val">±0.0 EV</b></span>
+          <input type="range" id="light" min="-100" max="100" value="0" step="1">
+        </label>
+        <label class="vf-ctrl">
+          <span class="vf-ctrl-head">◎ Фокус <b id="focus-val">100%</b></span>
+          <input type="range" id="focus" min="0" max="100" value="100" step="1">
+        </label>
+      </div>
+
+      <!-- Подпись под видоискателем -->
+      <div class="shot-caption">
+        <h3 id="shot-title"></h3>
+        <p id="shot-tip"></p>
+      </div>
+
+      <!-- Плёнка с миниатюрами -->
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="logo-text">Ракурс</span>
+      <span class="footer-note">Онлайн-школа фотографии для взрослых новичков</span>
+    </div>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

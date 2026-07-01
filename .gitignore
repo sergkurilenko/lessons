@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+*.swp
+.idea/
+.vscode/
+
+# Data sources — not published (kept locally as the site's content source)
+*.docx
