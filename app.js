@@ -94,20 +94,38 @@ const setActive = (id) => {
   );
 };
 
-const visible = new Set();
-const spy = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((e) =>
-      e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)
-    );
-    // активен верхний из видимых разделов; выше первого — ничего не подсвечено
-    const current = sections.find((s) => visible.has(s.id));
-    setActive(current ? current.id : null);
-  },
-  // раздел считается активным, когда его верх пересекает линию под шапкой
-  { rootMargin: "-70px 0px -60% 0px", threshold: 0 }
-);
-sections.forEach((s) => spy.observe(s));
+// Активен последний раздел, чей верх ушёл под шапку. Отдельно ловим низ
+// страницы: короткий последний раздел (Контакты) иначе не успевает подняться
+// в зону активности и подсветка на нём не срабатывает.
+const LINE = 80; // px под шапкой
+let ticking = false;
+
+function updateActive() {
+  ticking = false;
+  const scrolledToBottom =
+    window.innerHeight + Math.ceil(window.scrollY) >=
+    document.documentElement.scrollHeight - 2;
+
+  let currentId = null;
+  if (scrolledToBottom) {
+    currentId = sections[sections.length - 1].id;
+  } else {
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= LINE) currentId = s.id;
+    }
+  }
+  setActive(currentId);
+}
+
+function requestUpdate() {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(updateActive);
+}
+
+window.addEventListener("scroll", requestUpdate, { passive: true });
+window.addEventListener("resize", requestUpdate);
+updateActive();
 
 // Таблица цен
 document.getElementById("price-table").innerHTML = `
